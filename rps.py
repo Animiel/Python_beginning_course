@@ -2,13 +2,6 @@ import sys          # imports systeme module to use variables or functions to in
 import random           # imports random module to use some randomizing methods
 from enum import Enum           # imports only one of the modules tools
 
-class RPS(Enum):
-    ROCK = 1
-    LEAF = 2
-    SCISSORS = 3
-
-playAgain = True
-
 # making a rock, leaf, scissors game
 
 # intro to user input
@@ -20,14 +13,21 @@ playAgain = True
 
 
 # the game project
-while playAgain:
+
+def play_rps():
+    class RPS(Enum):
+        ROCK = 1
+        LEAF = 2
+        SCISSORS = 3
+
     playerChoice = input("\nEnter...\n1 for Rock,\n2 for Leaf, or \n3 for Scissors :\n\n")
+
+    if playerChoice not in ["1", "2", "3"]:
+        print("You must enter 1, 2, or 3 please.")
+        return play_rps()
 
     player = int(playerChoice)          # player could use like "one" or anything else but controling the input will be seen later
 
-    if player < 1 or player > 3:
-        #print("You must enter 1, 2, or 3.")         # this wouldn't stop the program from running so it would continue with a non desirable value
-        sys.exit("You must enter 1, 2, or 3 please.")
     computerChoice = random.choice("123")
     computer = int(computerChoice)
 
@@ -45,13 +45,19 @@ while playAgain:
     else:
         print("🥺 You lost... 🥺")
     
-    playAgain = input("\nPlay again ? \nY for Yes or \nN for No \n\n")
+    print("\nPlay again ?")
+
+    while True:
+        playAgain = input("\nY for Yes or \nN for No \n")
+        if playAgain.lower() not in ["y","n"]:
+            continue
+        else:
+            break
 
     if playAgain.lower() == "y":
-        continue
+        return play_rps()
     else:
         print("❤️ Thanks for playing ! ❤️")
-        playAgain = False
-        # break
+        sys.exit("Bye ! 🙋‍♂️")
 
-sys.exit("Bye ! 🙋‍♂️")
+play_rps()
