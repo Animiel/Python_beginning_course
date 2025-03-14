@@ -14,6 +14,8 @@ from enum import Enum           # imports only one of the modules tools
 
 # the game project
 
+gameCount = 0
+
 def play_rps():
     class RPS(Enum):
         ROCK = 1
@@ -34,16 +36,26 @@ def play_rps():
     print("\nYou chose " + str(RPS(player)).replace('RPS.', '') + ".")
     print("Computer chose " + str(RPS(computer)).replace('RPS.', '') + ".\n")
 
-    if player == 1 and computer == 3:
-        print("🎉 You won ! 🎉")
-    elif player == 2 and computer == 1:
-        print("🎉 You won ! 🎉")
-    elif player == 3 and computer == 2:
-        print("🎉 You won ! 🎉")
-    elif player == computer:
-        print("🤷‍♂️ Nobody wins. 🤷‍♂️")
-    else:
-        print("🥺 You lost... 🥺")
+    def decide_winner(player, computer):
+
+        if player == 1 and computer == 3:
+            return "🎉 You won ! 🎉"
+        elif player == 2 and computer == 1:
+            return "🎉 You won ! 🎉"
+        elif player == 3 and computer == 2:
+            return "🎉 You won ! 🎉"
+        elif player == computer:
+            return "🤷‍♂️ Nobody wins. 🤷‍♂️"
+        else:
+            return "🥺 You lost... 🥺"
+    
+    gameResult = decide_winner(player, computer)
+    print(gameResult)
+
+    global gameCount
+    gameCount += 1
+
+    print("\nGame count : " + str(gameCount))
     
     print("\nPlay again ?")
 
