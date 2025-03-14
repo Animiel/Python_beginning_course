@@ -13,63 +13,79 @@ from enum import Enum           # imports only one of the modules tools
 
 
 # the game project
+def rps():
+    gameCount = 0
+    playerWins = 0
+    cpuWins = 0
 
-gameCount = 0
+    def play_rps():
+        nonlocal playerWins
+        nonlocal cpuWins
+        class RPS(Enum):
+            ROCK = 1
+            LEAF = 2
+            SCISSORS = 3
 
-def play_rps():
-    class RPS(Enum):
-        ROCK = 1
-        LEAF = 2
-        SCISSORS = 3
+        playerChoice = input("\nEnter...\n1 for Rock,\n2 for Leaf, or \n3 for Scissors :\n\n")
 
-    playerChoice = input("\nEnter...\n1 for Rock,\n2 for Leaf, or \n3 for Scissors :\n\n")
+        if playerChoice not in ["1", "2", "3"]:
+            print("You must enter 1, 2, or 3 please.")
+            return play_rps()
 
-    if playerChoice not in ["1", "2", "3"]:
-        print("You must enter 1, 2, or 3 please.")
-        return play_rps()
+        player = int(playerChoice)          # player could use like "one" or anything else but controling the input will be seen later
 
-    player = int(playerChoice)          # player could use like "one" or anything else but controling the input will be seen later
+        computerChoice = random.choice("123")
+        computer = int(computerChoice)
 
-    computerChoice = random.choice("123")
-    computer = int(computerChoice)
+        print("\nYou chose " + str(RPS(player)).replace('RPS.', '') + ".")
+        print("Computer chose " + str(RPS(computer)).replace('RPS.', '') + ".\n")
 
-    print("\nYou chose " + str(RPS(player)).replace('RPS.', '') + ".")
-    print("Computer chose " + str(RPS(computer)).replace('RPS.', '') + ".\n")
+        def decide_winner(player, computer):
+            nonlocal playerWins
+            nonlocal cpuWins
 
-    def decide_winner(player, computer):
+            if player == 1 and computer == 3:
+                playerWins += 1
+                return "🎉 You won ! 🎉"
+            elif player == 2 and computer == 1:
+                playerWins += 1
+                return "🎉 You won ! 🎉"
+            elif player == 3 and computer == 2:
+                playerWins += 1
+                return "🎉 You won ! 🎉"
+            elif player == computer:
+                return "🤷‍♂️ Nobody wins. 🤷‍♂️"
+            else:
+                cpuWins += 1
+                return "🥺 You lost... 🥺"
+        
+        gameResult = decide_winner(player, computer)
+        print(gameResult)
 
-        if player == 1 and computer == 3:
-            return "🎉 You won ! 🎉"
-        elif player == 2 and computer == 1:
-            return "🎉 You won ! 🎉"
-        elif player == 3 and computer == 2:
-            return "🎉 You won ! 🎉"
-        elif player == computer:
-            return "🤷‍♂️ Nobody wins. 🤷‍♂️"
+        nonlocal gameCount
+        gameCount += 1
+
+        print("\nGame count : " + str(gameCount))
+        print("\nPlayer wins : " + str(playerWins))
+        print("\nComputer wins : " + str(cpuWins))
+        
+        print("\nPlay again ?")
+
+        while True:
+            playAgain = input("\nY for Yes or \nN for No \n")
+            if playAgain.lower() not in ["y","n"]:
+                continue
+            else:
+                break
+
+        if playAgain.lower() == "y":
+            return play_rps()
         else:
-            return "🥺 You lost... 🥺"
-    
-    gameResult = decide_winner(player, computer)
-    print(gameResult)
+            print("❤️ Thanks for playing ! ❤️")
+            sys.exit("Bye ! 🙋‍♂️")
 
-    global gameCount
-    gameCount += 1
+    return play_rps         # without () -> only to call function
 
-    print("\nGame count : " + str(gameCount))
-    
-    print("\nPlay again ?")
+play = rps()
 
-    while True:
-        playAgain = input("\nY for Yes or \nN for No \n")
-        if playAgain.lower() not in ["y","n"]:
-            continue
-        else:
-            break
-
-    if playAgain.lower() == "y":
-        return play_rps()
-    else:
-        print("❤️ Thanks for playing ! ❤️")
-        sys.exit("Bye ! 🙋‍♂️")
-
-play_rps()
+play()
