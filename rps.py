@@ -86,6 +86,7 @@ def rps():
 
     return play_rps         # without () -> only to call function
 
-play = rps()
+rockPaperScissors = rps()
 
-play()
+if __name__ == "__main__":
+    rockPaperScissors()
