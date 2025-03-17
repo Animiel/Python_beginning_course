@@ -1,0 +1,15 @@
+pip installs packages not installed by default by python
+list of existing packages at : pypi.org
+
+py -m venv .name		--> creating a virtual environement with the name in .name
+
+source .venv/Scripts/activate   --> activates the venv
+				--> have to activate every time when working on the project
+				--> (.name) appears at the end of command line when inside the environement
+
+deactivate			--> deactivates venv and gets back to global env
+				--> (.name) disappears
+
+-U --upgrade			--> to upgrade PIP version or packages version
+
+py -m pip freeze > requirements.txt
